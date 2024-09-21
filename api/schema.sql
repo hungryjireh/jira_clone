@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS issues;
+
+CREATE TABLE issues (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    title TEXT NOT NULL,
+    description TEXT,
+    status TEXT NOT NULL,
+    user TEXT
+);
