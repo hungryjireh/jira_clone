@@ -26,7 +26,7 @@ export default function Home() {
     e.preventDefault()
     try {
       await axios.post(`${API_URL}/issues`, newIssue)
-      setNewIssue({ title: '', description: '', status: '' })
+      setNewIssue({ title: '', description: '', status: '', user: '' })
       fetchIssues()
     } catch (error) {
       console.error('Error creating issue:', error)
@@ -64,6 +64,43 @@ export default function Home() {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">Jira Issues Manager</h1>
+
+      <form onSubmit={createIssue} className="mb-8">
+        <input
+          type="text"
+          placeholder="Issue Title"
+          value={newIssue.title}
+          onChange={(e) => setNewIssue({...newIssue, title: e.target.value})}
+          required
+          className="w-full p-2 mb-2 border rounded"
+        />
+        <textarea
+          placeholder="Description"
+          value={newIssue.description}
+          onChange={(e) => setNewIssue({...newIssue, description: e.target.value})}
+          className="w-full p-2 mb-2 border rounded"
+        />
+        <select
+          value={newIssue.status}
+          onChange={(e) => setNewIssue({...newIssue, status: e.target.value})}
+          required
+          className="w-full p-2 mb-2 border rounded"
+        >
+          <option value="">Select Status</option>
+          <option value="To Do">To Do</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Done">Done</option>
+        </select>
+        <input
+          type="text"
+          placeholder="Assigned To"
+          value={newIssue.user}
+          onChange={(e) => setNewIssue({...newIssue, user: e.target.value})}
+          required
+          className="w-full p-2 mb-2 border rounded"
+        />
+        <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded">Create Issue</button>
+      </form>
 
       <h2 className="text-2xl font-bold mb-4">Issues</h2>
       {issues.map((issue) => (
